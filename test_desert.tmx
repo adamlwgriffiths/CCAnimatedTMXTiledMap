@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="5" height="5" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tmw_desert_spacing.png" trans="ff00ff" width="265" height="199"/>
+  <tile id="0">
+   <properties>
+    <property name="animate_delay" value="1.0"/>
+    <property name="animate_enable" value="YES"/>
+    <property name="animate_next_tile" value="2"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="animate_enable" value="YES"/>
+    <property name="animate_next_tile" value="3"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="animate_enable" value="YES"/>
+    <property name="animate_next_tile" value="4"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="animate_enable" value="YES"/>
+    <property name="animate_next_tile" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="5" height="5">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAw3DtxGAMBAAsCcVgClIBcEFaf8Vke5URERpZW1ja2dvcnB0cnZxdXP38DR7efv4+vkDzh8IVWQAAAA=
+  </data>
+ </layer>
+</map>
