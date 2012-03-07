@@ -51,8 +51,8 @@
 	NSDictionary		*animated_tiles;
 }
 
-+(id) fromTMXTiledMap: (CCTMXTiledMap*)map interval: (ccTime)dt;
++(id) fromTMXTiledMap: (CCTMXTiledMap*)map interval: (ccTime)interval;
 
--(id) initWithMap: (CCTMXTiledMap*) map interval: (ccTime)interval;
+-(id) initWithMap: (CCTMXTiledMap*)map interval: (ccTime)interval;
 
 @end

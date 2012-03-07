@@ -154,6 +154,49 @@
 
 // ---------------------------------------------
 
+-(NSArray*) getAnimatedTilesForLayer: (CCTMXLayer*)layer
+{
+	// we will store x,y coordinates for each animated
+	// tile in this array
+	NSMutableArray *coords = [NSMutableArray array];
+	
+	// iterate through the tiles of our layer
+	CGSize size = [layer layerSize];
+	for( int x = 0; x < size.width; ++x)
+	{
+		for( int y = 0; y < size.height; ++y )
+		{
+			// see if the tile has a GID of a tile with
+			// animations enabled
+			CGPoint point = ccp( x, y );
+			unsigned int gid = [layer tileGIDAt: point];
+			if ( [self animationEnabledForGID: gid] == YES )
+			{
+				// animation is enabled
+				NSLog( @"[%@]:%d,%d is animated", layer.layerName, x, y );
+				
+				// convert the CGPoint to an NSValue
+				// and add to our array
+				[coords addObject: [NSValue valueWithCGPoint: point]];
+			}
+		}
+	}
+	
+	// check if we found any coordinates
+	if ( [coords count] == 0 )
+	{
+		// no coordinates
+		NSLog( @"[%@]: No animations", layer.layerName );
+		return nil;
+	}
+	
+	// we have some animations
+	// convert from NSMutableArray to NSArray
+	return [NSArray arrayWithArray: coords];
+}
+
+// ---------------------------------------------
+
 -(void) animateTiles: (ccTime)dt
 {
 	// iterate through the layers in our animation dictionary
@@ -189,49 +232,6 @@
 		// set the tile to the next GID
 		[layer setTileGID: gid at: point];
 	}
-}
-
-// ---------------------------------------------
-
--(NSArray*) getAnimatedTilesForLayer: (CCTMXLayer*)layer
-{
-	// we will store x,y coordinates for each animated
-	// tile in this array
-	NSMutableArray *coords = [NSMutableArray array];
-	
-	// iterate through the tiles of our layer
-	CGSize size = [layer layerSize];
-	for( int x = 0; x < size.width; ++x)
-	{
-		for( int y = 0; y < size.height; ++y )
-		{
-			// see if the tile has a GID of a tile with
-			// animations enabled
-			CGPoint point = ccp( x, y );
-			unsigned int gid = [layer tileGIDAt: point];
-			if ( [self animationEnabledForGID: gid] == YES )
-			{
-				// animation is enabled
-				NSLog( @"[%@]:%d,%d is animated", layer.layerName, x, y );
-
-				// convert the CGPoint to an NSValue
-				// and add to our array
-				[coords addObject: [NSValue valueWithCGPoint: point]];
-			}
-		}
-	}
-	
-	// check if we found any coordinates
-	if ( [coords count] == 0 )
-	{
-		// no coordinates
-		NSLog( @"[%@]: No animations", layer.layerName );
-		return nil;
-	}
-	
-	// we have some animations
-	// convert from NSMutableArray to NSArray
-	return [NSArray arrayWithArray: coords];
 }
 
 // ---------------------------------------------
