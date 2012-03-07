@@ -26,6 +26,7 @@
 //  THE SOFTWARE.
 //
 
+#import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
 
@@ -44,11 +45,14 @@
  *   animate_enabled   : YES
  *   animate_next_tile : GID of next tile (1 indexed)
  */
-@interface CCAnimatedTMXTiledMap : CCTMXTiledMap
+@interface CCAnimatedTMXTiledMap : NSObject
 {
+	CCTMXTiledMap		*map;
 	NSDictionary		*animated_tiles;
 }
 
-+(id) tiledMapWithTMXFile: (NSString*)tmxFile interval: (ccTime)dt;
++(id) fromTMXTiledMap: (CCTMXTiledMap*)map interval: (ccTime)dt;
+
+-(id) initWithMap: (CCTMXTiledMap*) map interval: (ccTime)interval;
 
 @end

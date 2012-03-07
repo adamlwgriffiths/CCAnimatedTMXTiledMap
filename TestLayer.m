@@ -1,14 +1,12 @@
 //
 //  TestLayer.m
-//  Arena
 //
 //  Created by Adam Griffiths on 6/03/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Twisted Pair Development. All rights reserved.
 //
 
 #import "TestLayer.h"
 
-#import "CCAnimatedTMXTiledMap.h"
 
 @implementation TestLayer
 
@@ -17,8 +15,9 @@
 	self = [super init];
 	if ( self != nil )
 	{
-		CCAnimatedTMXTiledMap *map = [CCAnimatedTMXTiledMap tiledMapWithTMXFile: @"test_desert.tmx" interval: 1.0f];
+		CCTMXTiledMap *map = [CCTMXTiledMap tiledMapWithTMXFile: @"test_desert.tmx"];
 		[self addChild: map];
+		animator = [CCAnimatedTMXTiledMap fromTMXTiledMap: map interval: 1.0f];
 	}
 	return self;
 }

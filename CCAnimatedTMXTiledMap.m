@@ -31,8 +31,6 @@
 // ---------------------------------------------
 
 @interface CCAnimatedTMXTiledMap (PrivateMethods)
--(id) initWithTMXFile: (NSString*) tmxFile interval: (ccTime)dt;
-
 -(BOOL) animationEnabledForGID: (unsigned int)gid;
 -(unsigned int) nextAnimationForGID: (unsigned int)gid;
 
@@ -47,28 +45,34 @@
 
 @implementation CCAnimatedTMXTiledMap
 
-// ---------------------------------------------
 
-+(id) tiledMapWithTMXFile: (NSString*)tmxFile interval: (ccTime)dt
++(id) fromTMXTiledMap: (CCTMXTiledMap*)map interval: (ccTime)dt
 {
-	return [ [self alloc] initWithTMXFile: tmxFile interval: dt];
+	return [ [self alloc] initWithMap: map interval: dt];
 }
 
 // ---------------------------------------------
 
--(id) initWithTMXFile: (NSString*) tmxFile interval: (ccTime)dt
+-(id) initWithMap: (CCTMXTiledMap*) _map interval: (ccTime)_interval
 {
-	self = [super initWithTMXFile: tmxFile];
+	self = [super init];
 	if ( self != nil )
 	{
+		map = _map;
+		
 		// process our tile set meta data
 		// and find any animated tiles.
 		// we will store this info efficient processing
 		// at runtime.
 		animated_tiles = [self getAnimatedMapTiles];
-		
+
 		// add a callback to handle animating the sprites
-		[self schedule: @selector(animateTiles:) interval: dt];
+		[ [CCScheduler sharedScheduler]
+		 	scheduleSelector: @selector(animateTiles:)
+		 	forTarget: self
+		 	interval: _interval
+		 	paused: NO
+		 	];
 	}
 	return self;
 }
@@ -80,7 +84,7 @@
 	// get the property set for the GID if one exists
 	// if there is one, check if the 'animate_enable' value
 	// is set to 'YES'
-	NSDictionary *properties = [self propertiesForGID: gid ];
+	NSDictionary *properties = [map propertiesForGID: gid ];
 	if ( properties != nil )
 	{
 		// get the 'animate_enable' value
@@ -99,7 +103,7 @@
 	// get the property set for the GID if one exists
 	// if there is one, check if the 'animate_enable' value
 	// is set to 'YES'
-	NSDictionary *properties = [self propertiesForGID: gid ];
+	NSDictionary *properties = [map propertiesForGID: gid ];
 	if ( properties != nil )
 	{
 		// get the 'animate_next_tile' value
@@ -124,7 +128,7 @@
 	
 	// iterate through our layers in order to find
 	// any tiles that have animations
-	for ( CCTMXLayer* layer in [self children] )
+	for ( CCTMXLayer* layer in [map children] )
 	{
 		// find any animated tiles for this layer
 		// if there are no animations, the return value
@@ -168,7 +172,7 @@
 	NSArray* coords = [animated_tiles objectForKey: layerName];
 	
 	// get the layer object
-	CCTMXLayer *layer = [self layerNamed: layerName];
+	CCTMXLayer *layer = [map layerNamed: layerName];
 
 	// iterate through each tile for the layer	
 	for ( NSValue *val in coords )
