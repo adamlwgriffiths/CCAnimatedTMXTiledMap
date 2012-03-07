@@ -23,19 +23,9 @@ Usage
 
 Simply drop the source files in your project and include the .h file.
 
-Use just like the CCTMXTiledMap, but provide an extra parameter for the
-animation interval.
+See the example directory for source code.
 
-Eg:
-
-CCAnimatedTMXTiledMap *map = [CCAnimatedTMXTiledMap
-	tiledMapWithTMXFile: @"test_desert.tmx"
-	interval: 1.0f
-	];
-[self addChild: map];
-
-
-Animations are specified by adding meta-data to tile sets.
+Animations are specified in the TMX editor by adding meta-data to tile sets.
 
 To add animation to a tile:
 -Right click the tile in the tile set.
@@ -48,5 +38,4 @@ To add animation to a tile:
 Dependencies
 ----------------------------
 
-1. cocos2d-iphone
-2. TMX formatted maps.
+cocos2d-iphone (or Kobold2d)
