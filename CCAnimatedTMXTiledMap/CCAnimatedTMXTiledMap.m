@@ -126,7 +126,6 @@
 
 -(ccTime) getAnimationDelay
 {
-	NSLog( @"map.properties = %@", map.properties );
 	NSNumber *animation_delay = [map.properties objectForKey: @"animate_delay"];
 	if ( animation_delay != nil )
 	{
