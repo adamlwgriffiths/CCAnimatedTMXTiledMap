@@ -37,6 +37,7 @@
 -(void) animateTiles: (ccTime)dt;
 -(void) animateTilesForLayer: (NSString*)layer delta:(ccTime)dt;
 
+-(ccTime) getAnimationDelay;
 -(NSDictionary*) getAnimatedMapTiles;
 -(NSArray*) getAnimatedTilesForLayer: (CCTMXLayer*)layer;
 @end
@@ -46,14 +47,14 @@
 @implementation CCAnimatedTMXTiledMap
 
 
-+(id) fromTMXTiledMap: (CCTMXTiledMap*)map interval: (ccTime)dt
++(id) fromTMXTiledMap: (CCTMXTiledMap*)map
 {
-	return [ [self alloc] initWithMap: map interval: dt];
+	return [ [self alloc] initWithMap: map];
 }
 
 // ---------------------------------------------
 
--(id) initWithMap: (CCTMXTiledMap*) _map interval: (ccTime)_interval
+-(id) initWithMap: (CCTMXTiledMap*) _map
 {
 	self = [super init];
 	if ( self != nil )
@@ -65,12 +66,14 @@
 		// we will store this info efficient processing
 		// at runtime.
 		animated_tiles = [self getAnimatedMapTiles];
+		
+		ccTime interval = [self getAnimationDelay];
 
 		// add a callback to handle animating the sprites
 		[ [CCScheduler sharedScheduler]
 		 	scheduleSelector: @selector(animateTiles:)
 		 	forTarget: self
-		 	interval: _interval
+		 	interval: interval
 		 	paused: NO
 		 	];
 	}
@@ -117,6 +120,23 @@
 	// no properties
 	// so return the current value
 	return gid;
+}
+
+// ---------------------------------------------
+
+-(ccTime) getAnimationDelay
+{
+	NSLog( @"map.properties = %@", map.properties );
+	NSNumber *animation_delay = [map.properties objectForKey: @"animate_delay"];
+	if ( animation_delay != nil )
+	{
+		return [animation_delay floatValue];
+	}
+	
+	NSLog( @"No 'animate_delay' property set on map" );
+	
+	// return 30fps
+	return 0.032f;
 }
 
 // ---------------------------------------------
