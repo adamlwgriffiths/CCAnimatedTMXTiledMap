@@ -28,6 +28,7 @@ See the example directory for source code.
 Animations are specified in the TMX editor by adding meta-data to tile sets.
 
 To add animation to a tile:
+
    * Right click the tile in the tile set.
    * Select 'Tile Properties'
    * Add the following key / value pairs:
@@ -35,6 +36,7 @@ To add animation to a tile:
    * animate_next_tile : GID of next tile (1 indexed)
 
 The map then specifies the time between animations in a global map property.
+
    * Select the 'Map' menu
    * Select 'Map Properties'
    * Add the following key / value pairs:
