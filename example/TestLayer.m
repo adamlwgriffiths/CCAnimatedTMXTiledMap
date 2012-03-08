@@ -17,7 +17,7 @@
 	{
 		CCTMXTiledMap *map = [CCTMXTiledMap tiledMapWithTMXFile: @"test_desert.tmx"];
 		[self addChild: map];
-		animator = [CCAnimatedTMXTiledMap fromTMXTiledMap: map interval: 1.0f];
+		animator = [CCAnimatedTMXTiledMap fromTMXTiledMap: map];
 	}
 	return self;
 }

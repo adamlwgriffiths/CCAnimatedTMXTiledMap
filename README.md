@@ -34,6 +34,12 @@ To add animation to a tile:
   animate_enabled   : YES, NO
   animate_next_tile : GID of next tile (1 indexed)
 
+The map then specifies the time between animations in a global map property.
+-Select the 'Map' menu
+-Select 'Map Properties'
+-Add the following key / value pairs:
+  animate_delay     : Time between animations. 0.016 for 60 fps.
+
 
 Dependencies
 ----------------------------

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="5" height="5" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="animate_delay" value="0.016"/>
+ </properties>
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tmw_desert_spacing.png" trans="ff00ff" width="265" height="199"/>
   <tile id="0">
    <properties>
-    <property name="animate_delay" value="1.0"/>
     <property name="animate_enable" value="YES"/>
     <property name="animate_next_tile" value="2"/>
    </properties>
