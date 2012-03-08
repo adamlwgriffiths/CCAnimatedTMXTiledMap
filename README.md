@@ -44,4 +44,4 @@ The map then specifies the time between animations in a global map property.
 Dependencies
 ----------------------------
 
-cocos2d-iphone (or Kobold2d)
+   * cocos2d-iphone (or Kobold2d)
