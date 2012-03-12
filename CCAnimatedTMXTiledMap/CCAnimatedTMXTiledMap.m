@@ -149,22 +149,25 @@
 	// any tiles that have animations
 	for ( CCTMXLayer* layer in [map children] )
 	{
-		// find any animated tiles for this layer
-		// if there are no animations, the return value
-		// will be nil
-		// otherwise it will be an NSArray of NSValues
-		// which were originally CGPoint
-		NSArray *coords = [self getAnimatedTilesForLayer: layer];
-		
-		// don't continue if there are no animations
-		if ( coords == nil )
+		if ( [layer isKindOfClass:[CCTMXLayer class]] )
 		{
-			continue;
-		}
+			// find any animated tiles for this layer
+			// if there are no animations, the return value
+			// will be nil
+			// otherwise it will be an NSArray of NSValues
+			// which were originally CGPoint
+			NSArray *coords = [self getAnimatedTilesForLayer: layer];
+		
+			// don't continue if there are no animations
+			if ( coords == nil )
+			{
+				continue;
+			}
 
-		// add the array to our dictionary
-		// the layer name shall be the key
-		[dict setObject: coords forKey: layer.layerName];
+			// add the array to our dictionary
+			// the layer name shall be the key
+			[dict setObject: coords forKey: layer.layerName];
+		}
 	}
 	
 	// convert to a non-mutable dictionary
